@@ -2,50 +2,49 @@ from random import randint as ri
 
 #Создаём список
 start_list = []
-for i in range(0,100):
-    start_list.append(ri(0, 1_000_000))
+for i in range(0,100): #Список именно из 100 элементов
+    start_list.append(ri(0, 1_000_000)) #Добавляем в список случайное целое число от 0 до миллиона
 print('Наш изначальный список:')
 print(start_list)
 print('============================================')
 
-
 #Пузырёк
-print('Производим сортировку пузырьком, выводим текущее состояние списка после каждой итерации')
-sorted_list = start_list
+#Производим сортировку пузырьком, выводим текущее состояние списка после каждой итерации
+sorted_list = start_list.copy() #Копируем исходный список, чтобы не перезаписывать его
 stop_flag = True
-counter = 0
-while stop_flag is True:
+counter = 0 #Счётчик количества сравнений
+while stop_flag is True: #Пока flag True, производится сортировка, когда становится False - список отсортирован
     stop_flag = False
-    for i in range(0, len(sorted_list) - 1):
+    for i in range(0, len(sorted_list) - 1): #Именно такой диапазон, потому что если до len(sorted_list), то выйдем за границы списка
         counter += 1
-        if sorted_list[i] < sorted_list[i + 1]:
+        if sorted_list[i] < sorted_list[i + 1]: #Если элемент который идёт первее в неотсортированном списке меньше следующего, то поменяем их местами
             swap = sorted_list[i]
             sorted_list[i] = sorted_list[i + 1]
             sorted_list[i + 1] = swap
             stop_flag = True
         
-    print(sorted_list)
-    print('============================')
+    print(sorted_list) #После каждой итерации выводим что получили (как и просилось в тз)
+    print('=========================================')
 
-print(sorted_list)
-print('================================')
-print(f'Количество сравнений - {counter}')
+print(sorted_list) #Выводим полностью отсортированный список
+print('=============================================')
+print(f'Количество сравнений - {counter}') #Выводим количество сравнений
 
 #Выборка
 print('Сортировка выборкой')
-counter1 = 0
-unsorted_list = start_list
-sorted_list = []
-while len(unsorted_list) > 0:
-    max = unsorted_list[0]
-    for i in range(0, len(unsorted_list)):
-        if unsorted_list[i] > max:
-            max = unsorted_list[i]
-    sorted_list.append(max)
-    unsorted_list.remove(max)
-    counter1 += 1
-    print(sorted_list)
+counter1 = 0 #Счётчик количества сравнений
+unsorted_list = start_list.copy() #Копируем как в пузырьке
+sorted_list = [] #Отсортированный список создаём пустой, чтобы добавлять в него по 1 элементу после каждой итерации
+while len(unsorted_list) > 0: #Именно такое условие, потому что дальше мы будем удалять элементы из списка
+    max_el = unsorted_list[0]
+    for i in range(1, len(unsorted_list)): #Начинаем с 1 потому что элемент с 0 индексом уже взят в качестве max_el
+        counter1 += 1
+        if unsorted_list[i] > max_el: #Если элемент больше нынешнего максимума, то в следующей строчке перезапишем его в качестве max_el
+            max_el = unsorted_list[i]
+    sorted_list.append(max_el) #Добавляем максимум в отсортированный список
+    unsorted_list.remove(max_el) #Удаляем из неотсортированного, чтобы двигаться дальше
+    print(sorted_list) #После каждой итерации выводим часть отсортированного списка
     print('=======================================')
 print('Итоговый список, количество сравнений')
-print(sorted_list)
-print(counter1)
+print(sorted_list) #Итоговый отсортированный список
+print(counter1) #Счётчик количества сравнений
